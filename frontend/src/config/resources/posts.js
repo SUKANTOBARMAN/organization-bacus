@@ -1,0 +1,28 @@
+export default {
+  key: 'posts', path: 'posts', endpoint: 'posts',
+  title: 'নিউজ ও ইভেন্ট', subtitle: 'নিউজ ও ইভেন্ট — কভার ছবি, একাধিক ছবি ও ভিডিও যোগ করা যায়',
+  columns: [
+    { label: 'কভার', key: 'cover_image_url', type: 'image' },
+    { label: 'শিরোনাম', key: 'title' },
+    { label: 'ধরন', key: 'type', type: 'badge' },
+    { label: 'তারিখ', key: 'published_at', type: 'date' },
+    { label: 'ভিউ', key: 'views_count' },
+    { label: 'ফিচারড', key: 'is_featured', type: 'bool' },
+    { label: 'প্রকাশিত', key: 'is_published', type: 'bool' },
+  ],
+  filters: [{ name: 'type', label: 'সকল ধরন', options: [{ value: 'news', label: 'নিউজ' }, { value: 'event', label: 'ইভেন্ট' }] }],
+  actions: [{ label: 'ছবিসমূহ', to: (r) => `/admin/posts/${r.id}/images` }],
+  fields: [
+    { name: 'title', label: 'শিরোনাম', required: true, full: true },
+    { name: 'type', label: 'ধরন', type: 'select', default: 'news', options: [{ value: 'news', label: 'নিউজ' }, { value: 'event', label: 'ইভেন্ট' }] },
+    { name: 'published_at', label: 'প্রকাশের তারিখ', type: 'date' },
+    { name: 'excerpt', label: 'সংক্ষিপ্ত সারসংক্ষেপ', type: 'textarea' },
+    { name: 'body', label: 'পূর্ণাঙ্গ বিবরণ', type: 'textarea' },
+    { name: 'cover_image', label: 'কভার ছবি', type: 'file', accept: 'image/*', full: true, help: 'আরও ছবি যোগ করতে সেভের পর "ছবিসমূহ" চাপুন' },
+    { name: 'event_at', label: 'ইভেন্টের তারিখ ও সময়', type: 'datetime', showIf: (f) => f.type === 'event' },
+    { name: 'venue', label: 'ভ্যানু / স্থান', showIf: (f) => f.type === 'event' },
+    { name: 'video_url', label: 'ভিডিও লিংক (ইউটিউব)', type: 'url', full: true },
+    { name: 'is_featured', label: 'ফিচারড (হোম পেজে দেখাবে)', type: 'checkbox' },
+    { name: 'is_published', label: 'প্রকাশিত', type: 'checkbox', default: true },
+  ],
+}
